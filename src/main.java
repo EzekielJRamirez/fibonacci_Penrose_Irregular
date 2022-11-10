@@ -1,6 +1,9 @@
 /**
  * Team 1
  * Ezekiel Ramirez
+ *
+ * pie 3.14159265359
+ * phi 1.61803398875
  */
 
 public class main {
@@ -18,9 +21,13 @@ public class main {
 
 //        double pie = Math.PI - 1;
 //        System.out.println(pie);
+
+        System.out.println(longitude(20));
     }
 
     /**
+     * TODO this method needs work!
+     *
      * Math.PI stores the constant up to the 15th decimal place
      * Math.PI is a final variable that doesn't update, so
      * we will emulate it.
@@ -32,12 +39,7 @@ public class main {
      * radians and maybe convert them back
      */
     public static double latitude(int i, int n) {
-        System.out.println(Math.PI);
-        double pie = 3.141592653589793;
-
-        double ret = pie - Math.asin((2.0 * i) / (2.0 * n + 1));
-        double ret2 = pie - 1;
-        System.out.println(Math.asin(((2.0 * i) / (2.0 * n + 1))));
+        double pie = Math.PI;
 
         if (i <= 0 ) {
             return Math.asin((2.0 * i) / (2 * n + 1));
@@ -47,17 +49,33 @@ public class main {
     }
 
     /**
+     * THIS METHOD WORKS
      *
+     * phi is considered a golden ratio and appears naturally
+     * in the world
      */
-    public static void longitude(int i) {
+    public static double longitude(int i) {
         double pie = Math.PI;
-        double some = Math.
+        double phi = 1.61803398875;
+
+        return ((2 * pie * i)/phi);
     }
 
     /**
-     *
+     * TODO this method needs work
+     * this method will have an issue with the array size changing fix before
+     * working on next method
      */
-    public static void genX() {
+    public static double[] genX(int n, double r) {
+        double[] a = new double[]{};
+        int i = -n;
+
+        while (i <= n){
+            a[i] += (-r + Math.cos(latitude(i,n)) * Math.cos(longitude(i)));
+            i += 1;
+        }
+
+        return a;
     }
 
     /**
