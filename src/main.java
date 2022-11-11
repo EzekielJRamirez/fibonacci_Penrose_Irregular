@@ -1,3 +1,5 @@
+import java.util.Vector;
+
 /**
  * Team 1
  * Ezekiel Ramirez
@@ -14,6 +16,8 @@ public class main {
         System.out.println(latitude(4, 5));
         // these given values should give a value of 0.814
 //        System.out.println(Math.asin((2.0 * 4) / (2 * 5 + 1)));
+        System.out.println(genCoord(20, 5));
+
     }
 
     /**
@@ -54,12 +58,14 @@ public class main {
      * this method will have an issue with the array size changing fix before
      * working on next method
      */
-    public static double[] genX(int n, double r) {
-        double[] a = new double[]{};
+    public static Vector<Double> genX(int n, double r) {
+//        double[] a = new double[(n * 2) + 1];
+        int size = (2 * n) + 1;
+        Vector<Double> a = new Vector<>(size);
         int i = -n;
 
         while (i <= n) {
-            a[i] += (-r + Math.cos(latitude(i, n)) * Math.cos(longitude(i)));
+            a.add((-r + Math.cos(latitude(i, n)) * Math.cos(longitude(i))));
             i += 1;
         }
 
@@ -69,18 +75,59 @@ public class main {
     /**
      *
      */
-    public static void genY(int n, double r) {
+    public static Vector<Double> genY(int n, double r) {
+        //        double[] a = new double[(n * 2) + 1];
+        int size = (2 * n) + 1;
+        Vector<Double> a = new Vector<>(size);
+        int i = -n;
+
+        while (i <= n) {
+            a.add((r + Math.sin(latitude(i, n))));
+            i += 1;
+        }
+
+        return a;
     }
 
     /**
      *
      */
-    public static void genZ(int n, double r) {
+    public static Vector<Double> genZ(int n, double r) {
+        //        double[] a = new double[(n * 2) + 1];
+        int size = (2 * n) + 1;
+        Vector<Double> a = new Vector<>(size);
+        int i = -n;
+
+        while (i <= n) {
+            a.add((r + Math.cos(latitude(i, n)) * Math.sin(longitude(i))));
+            i += 1;
+        }
+
+        return a;
     }
 
     /**
      *
      */
-    public static void genCoord(int n, double r) {
+    public static Vector<Vector<Double>> genCoord(int n, double r) {
+        int size = (2 * n) + 1;
+        Vector<Vector<Double>> a = new Vector<Vector<Double>>(size, size);
+        Vector<Double> x = genX(n, r);
+        Vector<Double> y = genY(n, r);
+        Vector<Double> z = genZ(n, r);
+        int i = 0;
+        while(i < x.size()){
+            Vector<Double> b = new Vector<>(size);
+            if(i == 41){
+                System.out.println();
+            }
+            b.add(x.get(i));
+            b.add(y.get(i));
+            b.add(z.get(i));
+            a.addElement(b);
+            i += 1;
+        }
+        return a;
+
     }
 }
